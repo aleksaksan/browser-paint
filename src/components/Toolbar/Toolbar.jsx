@@ -21,6 +21,16 @@ export const Toolbar = () => {
     toolState.setFillColor(e.target.value);
   };
 
+  const download = () => {
+    const dataUrl = canvasState.canvas.toDataURL();
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = Date.now() + '.jpg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   return (
     <div className="toolbar">
       <div className="margin-right">
@@ -49,7 +59,7 @@ export const Toolbar = () => {
         <button className="toolbar__btn redo" onClick={() => {canvasState.redo()}}>
           <SvgUndo />
         </button>
-        <button className="toolbar__btn save">
+        <button className="toolbar__btn save" onClick={download}>
           <SvgSave />
         </button>
       </div>
